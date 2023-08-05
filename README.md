@@ -40,14 +40,16 @@ python app.py
 #### Get prices
 
 ```http
-  GET /{view}
+GET /{view}
 ```
 
 | View |  Description                |
-| :--------  :------------------------- |
+|:-|:-|
 | `petrol` | price for petrol from each naaka |
 | `diesel` |  price for diesel from each naaka |
 | `lpg` | price for lpg from each naaka |
+
+
 
 
 
