@@ -23,7 +23,7 @@ source ./venv/bin/activate
 3. Install the required dependencies: 
 
 ```sh
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
     
 ## Run Locally
@@ -31,10 +31,19 @@ pip install -r requirements.txt
 1. Launch the application: 
 
 ```sh
-python app.py
+gunicorn app:app
 ```
 
-2. Access noc-nepal-api through your web browser at `http://localhost:3000`.
+2. Access noc-nepal-api through your web browser at `http://localhost:8000`.
+
+## For Docker
+```sh
+docker build -t noc-api . 
+docker run noc-api
+```
+
+Then, access noc-nepal-api through your web browser at `http://localhost:8000`.
+
 ## API Reference
 
 #### Get prices
