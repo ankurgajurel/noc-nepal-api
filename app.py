@@ -1,6 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
-from data import petrol_data, diesel_data, lpg_data
+import data
 
 app = Flask(__name__)
 
@@ -8,17 +8,24 @@ app = Flask(__name__)
 def index():
     return jsonify({"message": "this is an api for noc nepal prices. chk http://github.com/ankurgajurel/noc-nepal-api for docs",})
 
-@app.route('/petrol')
-def petrol():
-    return petrol_data.petrol_data
+@app.route('/<product_name>')
+def product(product_name, place = "all"):
 
-@app.route('/diesel')
-def diesel():
-    return diesel_data.diesel_data
+    product_data = data.data_for_product(product_name)
+    place = request.args.get('place', default = 'all', type = str)
 
-@app.route('/lpg')
-def lpg():
-    return lpg_data.lpg_data
+    default_return = product_data
+
+    if place != "all":
+        send_data = []
+        for each in default_return:
+            if place.lower() in each["place"].lower():
+                send_data.append(each)
+                print(each)
+
+        return jsonify(send_data)
+    
+    return (default_return)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
